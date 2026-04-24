@@ -1,0 +1,72 @@
+[package]
+name = "litellm-rs"
+version = "0.1.0"
+edition = "2021"
+authors = ["Margus Martsepp <margusmartsepp@gmail.com>"]
+description = "High-performance, zero-copy AI gateway and SDK in Rust"
+
+[dependencies]
+# Web & Networking
+axum = { version = "0.8", features = ["macros", "tokio"] }
+tokio = { version = "1.40", features = ["full"] }
+tower = { version = "0.5", features = ["full"] }
+tower-http = { version = "0.6", features = ["trace", "cors", "timeout"] }
+reqwest = { version = "0.12", features = ["json", "stream", "http2"] }
+
+# Serialization & Performance
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# Use simd-json for high-throughput translation
+simd-json = "0.14"
+# String interning to reduce memory pressure in large agent loops
+internment = "0.8"
+
+# Model Context Protocol (MCP) support
+pmcp = "0.1"
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Internal Utilities
+async-trait = "0.1"
+anyhow = "1.0"
+dashmap = "6.0" # Fast concurrent hash map for rate limits/state
+governor = "0.6" # High-precision rate limiting
+
+# CLI and auditing utilities
+colored = "2.0"
+sha2 = "0.10"
+futures-util = "0.3.32"
+async-stream = "0.3.6"
+base64 = "0.22.1"
+
+[dev-dependencies]
+wiremock = "0.6"
+
+[[test]]
+name = "models_test"
+path = "tests/unit/models_test.rs"
+
+[[test]]
+name = "integration_test"
+path = "tests/integration/integration_test.rs"
+
+[[test]]
+name = "chat_completion_test"
+path = "tests/e2e/chat_completion_test.rs"
+
+[[test]]
+name = "cloud_test"
+path = "tests/e2e/cloud_test.rs"
+
+[build-dependencies]
+# Required for our 'Superior' Build.rs strategy
+openapi-to-rust = "0.1.8" # Custom generator for provider schemas
+schemars = "0.8"
+typify = "0.6.1"
+serde_json = "1.0"
+serde_yaml = "0.9"
+regex = "1.10"
+serde_path_to_error = "0.1.20"
+chrono = "0.4.44"

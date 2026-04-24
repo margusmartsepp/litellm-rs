@@ -1,0 +1,20 @@
+# --- Generated Files & Lockfiles ---
+# We treat Cargo.lock as generated so it stays collapsed in PRs
+Cargo.lock linguist-generated=true
+
+# Hide generated Rust models from language stats and diffs
+# Note: build.rs output lands here in many CI environments
+target/debug/build/**/out/*.rs linguist-generated=true
+src/generated/*.rs linguist-generated=true
+
+# --- Schema & Documentation ---
+# Ensure JSON specs are treated as data, not code
+specs/*.json linguist-generated=true
+
+# --- Line Endings ---
+# Force LF for consistency across Windows/Linux (Crucial for CI/CD)
+* text=auto eol=lf
+*.rs text diff=rust
+*.md text
+*.toml text
+*.json text

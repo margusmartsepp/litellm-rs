@@ -1,0 +1,27 @@
+# LiteLLM-rs | Agent Orchestration Rules
+
+## Context & Sources of Truth
+- Primary Logic: Always reference llms.txt for high-level project maps.
+- API Schemas: DO NOT hallucinate API fields. Read the generated code in target/debug/build/**/out/*_types.rs. These are the final authority on provider contracts.
+- Testing Strategy: Follow tests/README.md for all QA requirements.
+
+## Rust Implementation Standards
+- Zero-Copy First: Prefer &str or Cow<'a, str> over String. Use serde with #[serde(borrow)] where possible.
+- Error Handling: Use anyhow for application-level errors and thiserror for library-level crates. Never unwrap() or expect() in production code.
+- Concurrency: Use tokio for async tasks. Avoid global locks; prefer dashmap for concurrent state.
+- Traits over Macros: Use Traits for provider transformations. Only use declarative macros if code duplication exceeds 3 repetitions.
+
+## Testing & Validation
+- Requirement: Every new src/ module MUST have a corresponding #[cfg(test)] block.
+- Integration: If modifying Provisioner, you must update tests/integration_test.rs.
+- Benchmarking: Any change to models.rs requires running cargo bench to check for P99 latency regressions.
+
+## Bifrost/Bifrost-Native Protocols
+- Header Protocol: All requests to Bifrost must include x-bf-vk (Virtual Key).
+- Fallbacks: Always implement the Retryable trait for model calls to support Bifrost’s health-aware routing.
+
+## Prohibited Patterns
+- No emoticons in code comments, logs, or documentation (e.g., no emojis like target, crab, etc.).
+- No RefCell or Mutex in the hot path.
+- No Python-style HashMap<String, Value> for fixed schemas; use the generated Structs.
+- No external crate additions without explicit justification in the PR comment.

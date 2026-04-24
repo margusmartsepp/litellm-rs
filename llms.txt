@@ -1,0 +1,12 @@
+# LiteLLM-rs
+
+A high-performance Rust SDK for AI orchestration.
+
+## Key Primitives
+- LiteLLM: The main client.
+- Provisioner: Spawns Bifrost via npx.
+- ModelMux: Handles zero-copy routing.
+
+## Testing Standards
+See /tests/README.md for the QA strategy.
+Agents must prioritize `tests/integration.rs` for verifying new provider logic.

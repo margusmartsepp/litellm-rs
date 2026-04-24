@@ -1,0 +1,86 @@
+site_name: LiteLLM-rs
+site_description: High-performance, zero-copy Rust SDK for AI orchestration.
+strict: true
+
+repo_name: margusmartsepp/litellm-rs
+repo_url: https://github.com/margusmartsepp/litellm-rs
+edit_uri: edit/main/docs/
+site_url: https://margusmartsepp.github.io/litellm-rs
+
+nav:
+  - Introduction: index.md
+  - Installation: installation.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Zero-Copy Models: architecture/zero-copy.md
+      - Bifrost Native Protocol: architecture/bifrost.md
+  - Development:
+      - Strategy: development/strategy.md
+      - Testing: development/testing.md
+      - Schema Generation: development/schemas.md
+  - API Reference:
+      - Crate Documentation: api/rustdoc.md # Link to generated rustdoc
+
+theme:
+  name: "material"
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: "Switch to dark mode"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: "Switch to light mode"
+  features:
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+
+plugins:
+  - search
+  - glightbox
+  - git-revision-date-localized
+  # In 2026, we use this to embed our actual Rust docs into the MkDocs theme
+  - mkdocstrings:
+      handlers:
+        rust:
+          # Points to your target/doc directory after running cargo doc
+          source: "target/doc"

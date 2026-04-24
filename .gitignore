@@ -1,0 +1,36 @@
+# 1. THE LOCKDOWN: Ignore everything starting with a dot
+.*
+
+# 2. THE PERMISSIONS: Re-include essential automation & metadata
+!/.gitignore
+!/.pre-commit-config.yaml
+!/.gitattributes
+!/.github/
+!/.github/**
+!/.cursorrules
+!/.cursorignore
+!/.claude/
+!/.claude/**
+!/.cargo/
+!/.cargo/**
+!/.rustfmt.toml
+
+# 3. PROJECT INFRASTRUCTURE
+!/specs/
+!/specs/*.json
+!/specs/*.yaml
+!/docs/
+!/docs/**
+!/llms.txt
+!/agents.md
+!/DEVELOPMENT.md
+!/RELEASE.md
+!/SECURITY.md
+!/mkdocs.yml
+
+# 4. STANDARD BUILD EXCLUSIONS
+/scratch*
+/target/
+/site/             # MkDocs output
+.env
+.env.*
