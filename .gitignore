@@ -34,3 +34,6 @@
 /site/             # MkDocs output
 .env
 .env.*
+*_debug.json
+build_*.txt
+*.log
